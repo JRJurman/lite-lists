@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<!-- libraries -->
+		<link rel="stylesheet" href="https://unpkg.com/open-props" />
+		<link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css" />
+		<script src="https://unpkg.com/tram-lite@1.3.1"></script>
+		<script src="https://unpkg.com/roughjs@4.5.2"></script>
+
+		<!-- components -->
+		<script src="./components/double-checkbox.js"></script>
+		<script src="./components/task-item.js"></script>
+		<script src="./components/task-list.js"></script>
+
+		<style>
+			@font-face {
+				font-family: 'Virgil';
+				src: url('./Virgil.woff2');
+			}
+
+			body {
+				font-family: Virgil;
+				font-size: var(--font-size-4);
+			}
+		</style>
+
+		<title>Quick Dos</title>
+	</head>
+	<body>
+		<task-list color="blue"></task-list>
+		<task-list color="green"></task-list>
+	</body>
+</html>

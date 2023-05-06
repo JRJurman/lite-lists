@@ -1,0 +1,13 @@
+{
+  "name": "quick-dos",
+  "version": "1.0.0",
+  "public": false,
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+		"start": "npx serve ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
