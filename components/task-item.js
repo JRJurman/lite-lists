@@ -1,5 +1,5 @@
 define`
-	<task-item color="blue" placeholder="and...">
+	<task-item placeholder="and...">
 		<style>
 			div {
 				display: flex;
@@ -8,10 +8,10 @@ define`
 
 			input {
 				font-family: inherit;
-				color: var(--${'color'}-5);
+				color: ${'color'};
 				border: none;
 				border-bottom: solid 2px;
-				border-bottom-color: var(--${'color'}-7);
+				border-bottom-color: ${'color'};
 				outline: 0;
 				background: none;
 				font-size: 1em;

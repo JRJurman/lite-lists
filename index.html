@@ -4,15 +4,14 @@
 		<meta charset="utf-8" />
 
 		<!-- libraries -->
-		<link rel="stylesheet" href="https://unpkg.com/open-props" />
-		<link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css" />
-		<script src="https://unpkg.com/tram-lite@1.3.1"></script>
+		<link rel="stylesheet" href="https://unpkg.com/open-props@1.5.8" />
+		<link rel="stylesheet" href="https://unpkg.com/open-props@1.5.8/normalize.min.css" />
+		<script src="https://unpkg.com/tram-lite@2.1.1"></script>
 		<script src="https://unpkg.com/roughjs@4.5.2"></script>
+		<script src="https://unpkg.com/feather-icons@4.29.0"></script>
 
-		<!-- components -->
-		<script src="./components/double-checkbox.js"></script>
-		<script src="./components/task-item.js"></script>
-		<script src="./components/task-list.js"></script>
+		<script src="./components/index.js"></script>
+		<lite-list-components></lite-list-components>
 
 		<style>
 			@font-face {
@@ -29,7 +28,11 @@
 		<title>Lite Lists</title>
 	</head>
 	<body>
-		<task-list color="blue"></task-list>
-		<task-list color="green"></task-list>
+		<drag-container>
+			<task-list color="blue"></task-list>
+		</drag-container>
+		<drag-container>
+			<task-list color="green"></task-list>
+		</drag-container>
 	</body>
 </html>

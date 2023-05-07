@@ -1,13 +1,18 @@
 define`
-	<task-list color="blue">
+	<task-list color="white">
 		<style>
 			h2 {
 				margin: 0;
+				display: flex;
+				justify-content: space-between;
+				width: 320px;
+				align-items: baseline;
 			}
 
-			input {
+			input[type="text"] {
+				width: 80%;
 				font-family: inherit;
-				color: var(--${'color'}-5);
+				color: ${'color'};
 				border: none;
 				outline: 0;
 				background: none;
@@ -20,10 +25,25 @@ define`
 				padding: 0;
 			}
 		</style>
-		<h2><input placeholder="New List"></h2>
-		<ul>
-			<task-item color=${'color'} placeholder="First Thing..."></task-item>
-			<task-item color=${'color'} placeholder="and..."></task-item>
-		</ul>
+		<div>
+			<h2>
+				<input type="text" placeholder="New List">
+				<color-picker color="blue">
+			</h2>
+			<ul>
+				<task-item color=${'color'} placeholder="First Thing..."></task-item>
+				<task-item color=${'color'} placeholder="and..."></task-item>
+			</ul>
+		</div>
+		<script>
+			initTaskList(this)
+		</script>
 	</task-list>
 `;
+
+function initTaskList(taskList) {
+	taskList.addEventListener('color-changed', (event) => {
+		const newColor = event.detail.color;
+		taskList.setAttribute('color', newColor);
+	});
+}

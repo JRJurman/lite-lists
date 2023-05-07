@@ -1,5 +1,5 @@
 define`
-	<double-checkbox color="blue" state="0" onload="initDoubleCheckbox(this)">
+	<double-checkbox state="0">
 		<style>
 			button {
 				border: none;
@@ -10,14 +10,14 @@ define`
 			svg {
 				cursor: pointer;
 				display: block;
-				stroke: var(--${'color'}-7);
+				stroke: ${'color'};
 			}
 			/* the first child is the inner fill of the box */
 			svg[state="1"] [triangle-container] g:first-child path {
-				stroke: var(--${'color'}-5);
+				stroke: ${'color'};
 			}
 			svg[state="2"] [triangle-container] g path {
-				stroke: var(--${'color'}-5);
+				stroke: ${'color'};
 			}
 		</style>
 		<button onclick="selectCheckbox(event)">
@@ -25,6 +25,9 @@ define`
 				<g triangle-container></g>
 			</svg>
 		</button>
+		<script>
+			initDoubleCheckbox(this);
+		</script>
 	</double-checkbox>
 `;
 
