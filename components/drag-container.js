@@ -2,14 +2,16 @@ define`
 	<drag-container>
 		<style>
 			svg {
-				position: absolute;
-				cursor: move;
 				top: 20px;
 				left: 20px;
 			}
 
 			div {
+				position: absolute;
 				padding-top: 1em;
+				padding-bottom: 0.5em;
+				cursor: move;
+				border: 1px solid;
 			}
 		</style>
 		<div onmousedown="startDraggableContainer(this, event)">
@@ -19,7 +21,6 @@ define`
 `;
 
 function startDraggableContainer(draggableDiv, event) {
-	console.log('starting');
 	const offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
 	const offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
 

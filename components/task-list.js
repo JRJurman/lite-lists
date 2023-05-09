@@ -1,5 +1,5 @@
 define`
-	<task-list color="white">
+	<task-list>
 		<style>
 			h2 {
 				margin: 0;
@@ -28,7 +28,7 @@ define`
 		<div>
 			<h2>
 				<input type="text" placeholder="New List">
-				<color-picker color="blue">
+				<color-picker color=${'color'}>
 			</h2>
 			<ul>
 				<task-item color=${'color'} placeholder="First Thing..."></task-item>

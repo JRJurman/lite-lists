@@ -34,7 +34,6 @@ define`
 function taskItemHandleKeyUp(input, event) {
 	if (event.key === 'Enter') {
 		event.preventDefault();
-		// input.getRootNode().host.dispatchEvent(new Event('create-task', { bubbles: true }));
 		addNewTaskItem(input);
 	}
 	if (event.key === 'ArrowUp') {
