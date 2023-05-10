@@ -1,5 +1,5 @@
 define`
-	<color-picker>
+	<color-picker color="#ffffff">
 		<style>
 			input[type=color] {
 				width: 20px;
@@ -26,12 +26,31 @@ define`
 		<datalist id="listColors">
 		</datalist>
 		<script>
-			initColorPicker(this)
+			initColorPicker(this);
 		</script>
 	</color-picker>
 `;
 
 function initColorPicker(colorPicker) {
+	// build and add all the options to put as default values in the color input
+	const hexColors = getAllHexColors();
+
+	const colorPickerDataList = colorPicker.shadowRoot.querySelector('datalist');
+	hexColors.forEach((hexcolor) => {
+		colorPickerDataList.appendChild(html`<option value="${hexcolor}"></option>`);
+	});
+}
+
+function emitColorChangeEvent(input, event) {
+	dispatchColorChangedEvent(input, event.target.value);
+}
+
+function dispatchColorChangedEvent(dispatchTarget, color) {
+	dispatchTarget.dispatchEvent(new CustomEvent('color-changed', { bubbles: true, composed: true, detail: { color } }));
+}
+
+function getAllHexColors() {
+	// set of open-props colors
 	const colors = [
 		'stone',
 		'red',
@@ -57,26 +76,5 @@ function initColorPicker(colorPicker) {
 	}
 
 	const hexColors = colors.map((color) => getCssVarValue(`--${color}-5`));
-
-	// build and add all the options to put as default values in the color input
-	const colorPickerDataList = colorPicker.shadowRoot.querySelector('datalist');
-	hexColors.forEach((hexcolor) => {
-		colorPickerDataList.appendChild(html`<option value="${hexcolor}"></option>`);
-	});
-
-	// if we don't have a default color, pick one of these at random
-	if (colorPicker.getAttribute('color') === '') {
-		const randomColor = hexColors[Math.floor(Math.random() * hexColors.length)];
-		dispatchColorChangedEvent(colorPicker, randomColor);
-	}
-}
-
-function emitColorChangeEvent(input, event) {
-	const colorPicker = input.getRootNode().host;
-	console.log('emitting color changed event!');
-	dispatchColorChangedEvent(colorPicker, event.target.value);
-}
-
-function dispatchColorChangedEvent(colorPicker, color) {
-	colorPicker.dispatchEvent(new CustomEvent('color-changed', { bubbles: true, composed: true, detail: { color } }));
+	return hexColors;
 }

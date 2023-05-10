@@ -1,12 +1,9 @@
 define`
-	<drag-container>
+	<drag-container x="20" y="20">
 		<style>
-			svg {
-				top: 20px;
-				left: 20px;
-			}
-
 			div {
+				top: ${'y'}px;
+				left: ${'x'}px;
 				position: absolute;
 				padding-top: 1em;
 				padding-bottom: 0.5em;
@@ -24,9 +21,10 @@ function startDraggableContainer(draggableDiv, event) {
 	const offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
 	const offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
 
+	const dragContainer = draggableDiv.getRootNode().host;
 	const mouseMoveHandler = (e) => {
-		draggableDiv.style.left = `${e.clientX - offsetX}px`;
-		draggableDiv.style.top = `${e.clientY - offsetY}px`;
+		dragContainer.setAttribute('x', e.clientX - offsetX);
+		dragContainer.setAttribute('y', e.clientY - offsetY);
 	};
 
 	const mouseUpHandler = () => {

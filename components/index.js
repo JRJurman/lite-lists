@@ -6,5 +6,6 @@ define`
 		<script src="./components/task-list.js"></script>
 		<script src="./components/drag-container.js"></script>
 		<script src="./components/color-picker.js"></script>
+		<script src="./components/task-list-canvas.js"></script>
 	</list-list-components>
 `;

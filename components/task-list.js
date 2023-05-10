@@ -25,16 +25,18 @@ define`
 				padding: 0;
 			}
 		</style>
+
 		<div>
 			<h2>
 				<input type="text" placeholder="New List">
-				<color-picker color=${'color'}>
+				<color-picker color=${'color'}></color-picker>
 			</h2>
 			<ul>
 				<task-item color=${'color'} placeholder="First Thing..."></task-item>
 				<task-item color=${'color'} placeholder="and..."></task-item>
 			</ul>
 		</div>
+
 		<script>
 			initTaskList(this)
 		</script>
@@ -46,4 +48,11 @@ function initTaskList(taskList) {
 		const newColor = event.detail.color;
 		taskList.setAttribute('color', newColor);
 	});
+
+	// build and add all the options to put as default values in the color input
+	const hexColors = getAllHexColors();
+
+	// always start by picking one of these colors at random
+	const randomColor = hexColors[Math.floor(Math.random() * hexColors.length)];
+	taskList.setAttribute('color', randomColor);
 }
