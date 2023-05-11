@@ -2,10 +2,15 @@ define`
 	<color-picker color="#ffffff">
 		<style>
 			input[type=color] {
-				width: 20px;
+				width: 21px;
 				height: 20px;
+				border: none;
 				border-radius: 50%;
 				overflow: hidden;
+				margin-left: -100%;
+				position: absolute;
+				right: 0;
+				top: 2em;
 			}
 
 			input[type=color]::-webkit-color-swatch {
@@ -52,6 +57,7 @@ function dispatchColorChangedEvent(dispatchTarget, color) {
 function getAllHexColors() {
 	// set of open-props colors
 	const colors = [
+		'gray',
 		'stone',
 		'red',
 		'pink',
@@ -67,6 +73,9 @@ function getAllHexColors() {
 		'orange',
 		'choco',
 		'brown',
+		'sand',
+		'camo',
+		'jungle',
 	];
 
 	// need to convert css variables to hex values to be usable in color input
@@ -75,6 +84,6 @@ function getAllHexColors() {
 		return computedStyle.getPropertyValue(varName).trim();
 	}
 
-	const hexColors = colors.map((color) => getCssVarValue(`--${color}-5`));
+	const hexColors = colors.map((color) => getCssVarValue(`--${color}-7`));
 	return hexColors;
 }

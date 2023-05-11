@@ -6,16 +6,20 @@ define`
 				align-items: center;
 			}
 
-			input {
+			input[type="text"] {
 				font-family: inherit;
+				font-weight: inherit;
 				color: ${'color'};
 				border: none;
-				border-bottom: solid 2px;
-				border-bottom-color: ${'color'};
 				outline: 0;
 				background: none;
 				font-size: 1em;
 				margin-left: 0.25em;
+			}
+
+			input[type="text"]::placeholder {
+				color: inherit;
+				opacity: 0.5;
 			}
 
 			double-checkbox {
@@ -26,7 +30,7 @@ define`
 		</style>
 		<div>
 			<double-checkbox color=${'color'}></double-checkbox>
-			<input name="task-item" autocomplete="off" onkeyup="taskItemHandleKeyUp(this, event)" placeholder=${'placeholder'}>
+			<input type="text" name="task-item" autocomplete="off" onkeyup="taskItemHandleKeyUp(this, event)" placeholder=${'placeholder'}>
 		</div>
 	</task-item>
 `;

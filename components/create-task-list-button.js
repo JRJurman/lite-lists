@@ -3,6 +3,7 @@ define`
 		<style>
 			button {
 				left: 0;
+				top: 0;
 				position: absolute;
 				transform: translateY(-100%);
 			}

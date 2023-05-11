@@ -5,22 +5,20 @@
 
 		<!-- libraries -->
 		<link rel="stylesheet" href="https://unpkg.com/open-props@1.5.8" />
-		<link rel="stylesheet" href="https://unpkg.com/open-props@1.5.8/normalize.min.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200&display=swap" rel="stylesheet" />
 		<script src="https://unpkg.com/tram-lite@2.1.1"></script>
 		<script src="https://unpkg.com/roughjs@4.5.2"></script>
 		<script src="https://unpkg.com/feather-icons@4.29.0"></script>
 
 		<script src="./components/index.js"></script>
-		<lite-list-components></lite-list-components>
 
 		<style>
-			@font-face {
-				font-family: 'Virgil';
-				src: url('./Virgil.woff2');
-			}
-
 			body {
-				font-family: Virgil;
+				color-scheme: light;
+				font-family: 'Montserrat', sans-serif;
+				font-weight: var(--font-weight-1);
 				font-size: var(--font-size-4);
 			}
 		</style>
@@ -28,6 +26,9 @@
 		<title>Lite Lists</title>
 	</head>
 	<body>
+		<lite-list-components></lite-list-components>
+
+		<dot-grid-pattern></dot-grid-pattern>
 		<create-task-list-button></create-task-list-button>
 		<task-list-canvas></task-list-canvas>
 	</body>

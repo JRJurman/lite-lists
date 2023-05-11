@@ -8,7 +8,6 @@ define`
 				padding-top: 1em;
 				padding-bottom: 0.5em;
 				cursor: move;
-				border: 1px solid;
 			}
 		</style>
 		<div onmousedown="startDraggableContainer(this, event)">
@@ -18,6 +17,13 @@ define`
 `;
 
 function startDraggableContainer(draggableDiv, event) {
+	// make sure the drag is happening on the div container,
+	// and not some other element like the checkbox or inputs
+	const clickTarget = event.composedPath()[0];
+	if (clickTarget != draggableDiv) {
+		return;
+	}
+
 	const offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
 	const offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
 
