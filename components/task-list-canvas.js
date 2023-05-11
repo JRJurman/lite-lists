@@ -21,12 +21,19 @@ function initTaskListCanvas(taskListCanvas) {
 		// and not some other element like the checkbox or inputs
 		const clickTarget = event.composedPath()[0];
 		if (clickTarget === divContainer) {
-			const newTaskList = html`
-				<drag-container x="${event.clientX}" y="${event.clientY}">
-					<task-list></task-list>
-				</drag-container>
-			`;
-			divContainer.appendChild(newTaskList);
+			createNewTaskList({ x: event.clientX, y: event.clientY });
 		}
 	});
+}
+
+function createNewTaskList(position) {
+	// get the div container from the window (so this function can be called anywhere)
+	const divContainer = window.document.querySelector('task-list-canvas').shadowRoot.querySelector('div');
+
+	const newTaskList = html`
+		<drag-container x="${position.x}" y="${position.y}">
+			<task-list></task-list>
+		</drag-container>
+	`;
+	divContainer.appendChild(newTaskList);
 }
