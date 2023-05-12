@@ -16,6 +16,14 @@ define`
 	</drag-container>
 `;
 
+const SNAP_BEHAVIORS = {
+	SNAP_ON_DRAG: 'SNAP_ON_DRAG',
+	SNAP_ON_RELEASE: 'SNAP_ON_RELEASE',
+	NO_SNAPPING: 'NO_SNAPPING',
+};
+
+const snappingBehavior = SNAP_BEHAVIORS.SNAP_ON_DRAG;
+
 function startDraggableContainer(draggableDiv, event) {
 	// make sure the drag is happening on the div container,
 	// and not some other element like the checkbox or inputs
@@ -29,17 +37,27 @@ function startDraggableContainer(draggableDiv, event) {
 
 	const dragContainer = draggableDiv.getRootNode().host;
 	const mouseMoveHandler = (e) => {
-		dragContainer.setAttribute('x', e.clientX - offsetX);
-		dragContainer.setAttribute('y', e.clientY - offsetY);
+		let newX = e.clientX - offsetX;
+		let newY = e.clientY - offsetY;
+
+		if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_DRAG) {
+			// snap to the nearest 1.4em -> 24px * 1.4em -> 33.6px
+			newX = Math.round(newX / 33.6) * 33.6 + 17;
+			newY = Math.round(newY / 33.6) * 33.6 + 13;
+		}
+
+		dragContainer.setAttribute('x', newX);
+		dragContainer.setAttribute('y', newY);
 	};
 
 	const mouseUpHandler = () => {
-		// snap to the nearest 1.4em -> 24px * 1.4em -> 33.6px
-		const roundedX = Math.round(dragContainer.getAttribute('x') / 33.6) * 33.6 + 17;
-		const roundedY = Math.round(dragContainer.getAttribute('y') / 33.6) * 33.6 + 13;
+		if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_RELEASE) {
+			const roundedX = Math.round(dragContainer.getAttribute('x') / 33.6) * 33.6 + 17;
+			const roundedY = Math.round(dragContainer.getAttribute('y') / 33.6) * 33.6 + 13;
 
-		dragContainer.setAttribute('x', roundedX);
-		dragContainer.setAttribute('y', roundedY);
+			dragContainer.setAttribute('x', roundedX);
+			dragContainer.setAttribute('y', roundedY);
+		}
 
 		document.removeEventListener('mousemove', mouseMoveHandler);
 		document.removeEventListener('mouseup', mouseUpHandler);
