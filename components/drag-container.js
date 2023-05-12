@@ -34,6 +34,13 @@ function startDraggableContainer(draggableDiv, event) {
 	};
 
 	const mouseUpHandler = () => {
+		// snap to the nearest 1.4em -> 24px * 1.4em -> 33.6px
+		const roundedX = Math.round(dragContainer.getAttribute('x') / 33.6) * 33.6 + 17;
+		const roundedY = Math.round(dragContainer.getAttribute('y') / 33.6) * 33.6 + 13;
+
+		dragContainer.setAttribute('x', roundedX);
+		dragContainer.setAttribute('y', roundedY);
+
 		document.removeEventListener('mousemove', mouseMoveHandler);
 		document.removeEventListener('mouseup', mouseUpHandler);
 	};
