@@ -7,6 +7,7 @@ define`
 			}
 		</style>
 		<div>
+			<span>double click anywhere to create a new list</span>
 		</div>
 		<script>
 			initTaskListCanvas(this)
@@ -21,6 +22,7 @@ function initTaskListCanvas(taskListCanvas) {
 		// and not some other element like the checkbox or inputs
 		const clickTarget = event.composedPath()[0];
 		if (clickTarget === divContainer) {
+			removeHelperText(taskListCanvas);
 			createNewTaskList({ x: event.clientX, y: event.clientY });
 		}
 	});
@@ -36,4 +38,8 @@ function createNewTaskList(position) {
 		</drag-container>
 	`;
 	divContainer.appendChild(newTaskList);
+}
+
+function removeHelperText(taskListCanvas) {
+	taskListCanvas.shadowRoot.querySelector('span').remove();
 }

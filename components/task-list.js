@@ -1,11 +1,6 @@
 define`
 	<task-list>
 		<style>
-		/*
-			div {
-				background: white;
-			} */
-
 			h2 {
 				margin: 0;
 				justify-content: space-between;
