@@ -84,4 +84,5 @@ function selectCheckbox(event) {
 	// not-stated: 0, started: 1, completed: 2
 	const newState = (currentState + 1) % 3;
 	doubleCheckbox.setAttribute('state', newState);
+	triggerSave(doubleCheckbox);
 }

@@ -1,5 +1,5 @@
 define`
-	<task-item placeholder="and...">
+	<task-item placeholder="and..." state="0">
 		<style>
 			div {
 				display: flex;
@@ -33,7 +33,7 @@ define`
 			<input type="text" name="task-item" autocomplete="off"
 							onkeyup="taskItemHandleKeyUp(this, event)"
 							placeholder=${'placeholder'} value="${'task'}">
-			<double-checkbox color=${'color'}></double-checkbox>
+			<double-checkbox color=${'color'} state=${'state'}></double-checkbox>
 		</div>
 	</task-item>
 `;
@@ -42,23 +42,24 @@ function taskItemHandleKeyUp(input, event) {
 	if (event.key === 'Enter') {
 		event.preventDefault();
 		addNewTaskItem(input);
-	}
-	if (event.key === 'ArrowUp') {
+	} else if (event.key === 'ArrowUp') {
 		event.preventDefault();
 		moveFocusPreviousToSibling(input);
-	}
-	if (event.key === 'ArrowDown') {
+	} else if (event.key === 'ArrowDown') {
 		event.preventDefault();
 		moveFocusNextToSibling(input);
-	}
-	if (event.key === 'Backspace') {
-		if (input.selectionStart === 0) {
-			removeTaskItem(input);
+	} else {
+		// update task text
+		if (event.key === 'Backspace') {
+			if (input.selectionStart === 0) {
+				removeTaskItem(input);
+			}
 		}
-	}
 
-	const taskItem = input.getRootNode().host;
-	taskItem.setAttribute('task', event.target.value);
+		const taskItem = input.getRootNode().host;
+		taskItem.setAttribute('task', event.target.value);
+		triggerSave(taskItem);
+	}
 }
 
 function addNewTaskItem(input) {

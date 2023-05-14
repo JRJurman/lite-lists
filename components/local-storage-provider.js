@@ -8,14 +8,15 @@ define`
 `;
 
 function initLocalStorageProvider(localStorageProvider) {
-	localStorageProvider.addEventListener('trigger-save', parseCurrentState);
+	localStorageProvider.addEventListener('trigger-save', writeCurrentState);
+	loadLocalstorageState();
 }
 
 function triggerSave(sourceElement) {
 	sourceElement.dispatchEvent(new CustomEvent('trigger-save', { bubbles: true, composed: true }));
 }
 
-function parseCurrentState() {
+function writeCurrentState() {
 	// get all drag containers (these have the location)
 	const dragContainers = queryAllDOM('drag-container');
 
@@ -44,5 +45,40 @@ function parseCurrentState() {
 		return { x, y, color, title, tasks };
 	});
 
-	console.log(JSON.stringify(taskLists));
+	const currentState = JSON.stringify(taskLists);
+	localStorage.setItem('lite-list-state', currentState);
+}
+
+function loadLocalstorageState() {
+	const currentStateString = localStorage.getItem('lite-list-state');
+	const currentState = JSON.parse(currentStateString);
+
+	currentState.forEach(({ x, y, color, title, tasks }) => {
+		// grab the div container for drag-containers
+		const divContainer = window.document.querySelector('task-list-canvas').shadowRoot.querySelector('div');
+
+		const newTaskList = html`
+			<drag-container x="${x}" y="${y}">
+				<task-list title="${title}"></task-list>
+			</drag-container>
+		`;
+
+		divContainer.appendChild(newTaskList);
+
+		// set the color
+		const [taskList] = queryAllDOM('task-list', newTaskList);
+		taskList.setAttribute('color', color);
+
+		// remove the default tasks, and inject the saved ones
+		const [taskItemList] = queryAllDOM('ul', taskList);
+		[...taskItemList.children].forEach((oldTask) => oldTask.remove());
+		tasks.forEach((newTask) => {
+			const newTaskItem = html`<task-item
+				task="${newTask.label}"
+				state="${newTask.state}"
+				color="${color}"
+			></task-item>`;
+			taskItemList.appendChild(newTaskItem);
+		});
+	});
 }
