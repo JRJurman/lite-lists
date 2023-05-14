@@ -4,6 +4,11 @@ define`
 			div {
 				width: 100vw;
 				height: 100vh;
+				text-align: center;
+			}
+			span {
+				display: block;
+				padding-top: 2em;
 			}
 		</style>
 		<div>
