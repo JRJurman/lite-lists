@@ -51,7 +51,7 @@ function taskItemHandleKeyUp(input, event) {
 	} else {
 		// update task text
 		if (event.key === 'Backspace') {
-			if (input.selectionStart === 0) {
+			if (input.selectionStart === 0 && event.target.value === '') {
 				removeTaskItem(input);
 			}
 		}
@@ -90,9 +90,13 @@ function moveFocusNextToSibling(input) {
 
 function removeTaskItem(input) {
 	const prevElement = input.getRootNode().host.previousElementSibling;
-	// don't delete if we don't have a previous element
+	const nextElement = input.getRootNode().host.nextElementSibling;
+	// don't delete if we don't have a previous or next element
 	if (prevElement) {
 		moveFocusPreviousToSibling(input);
+		input.getRootNode().host.remove();
+	} else if (nextElement) {
+		moveFocusNextToSibling(input);
 		input.getRootNode().host.remove();
 	}
 }
