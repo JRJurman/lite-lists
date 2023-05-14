@@ -9,7 +9,12 @@ define`
 
 function initLocalStorageProvider(localStorageProvider) {
 	localStorageProvider.addEventListener('trigger-save', writeCurrentState);
-	loadLocalstorageState();
+	try {
+		loadLocalstorageState();
+	} catch {
+		// if we fail, do a page reload
+		window.location.reload();
+	}
 }
 
 function triggerSave(sourceElement) {
@@ -81,4 +86,10 @@ function loadLocalstorageState() {
 			taskItemList.appendChild(newTaskItem);
 		});
 	});
+
+	if (currentState.length > 0) {
+		// remove the helper text
+		const [canvas] = queryAllDOM('task-list-canvas');
+		removeHelperText(canvas);
+	}
 }
