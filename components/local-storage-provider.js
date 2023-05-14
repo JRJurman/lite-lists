@@ -11,9 +11,13 @@ function initLocalStorageProvider(localStorageProvider) {
 	localStorageProvider.addEventListener('trigger-save', writeCurrentState);
 	try {
 		loadLocalstorageState();
+		sessionStorage.setItem('hasReloaded', 'false');
 	} catch {
-		// if we fail, do a page reload
-		window.location.reload();
+		// if we fail, do a page reload (but only do this once)
+		if (sessionStorage.getItem('hasReloaded') !== 'true') {
+			sessionStorage.setItem('hasReloaded', 'true');
+			window.location.reload();
+		}
 	}
 }
 

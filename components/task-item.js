@@ -30,7 +30,7 @@ define`
 			}
 		</style>
 		<div>
-			<input type="text" name="task-item" autocomplete="off"
+			<input type="text" name="task-item" autocomplete="off" size="20"
 							onkeyup="taskItemHandleKeyUp(this, event)"
 							placeholder=${'placeholder'} value="${'task'}">
 			<double-checkbox color=${'color'} state=${'state'}></double-checkbox>
