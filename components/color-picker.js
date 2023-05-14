@@ -10,7 +10,7 @@ define`
 				margin-left: -100%;
 				position: absolute;
 				right: 0;
-				top: 2em;
+				top: 3em;
 			}
 
 			input[type=color]::-webkit-color-swatch {

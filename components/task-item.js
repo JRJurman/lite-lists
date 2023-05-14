@@ -3,6 +3,7 @@ define`
 		<style>
 			div {
 				display: flex;
+				flex-direction: row-reverse;
 				align-items: center;
 			}
 
@@ -29,8 +30,10 @@ define`
 			}
 		</style>
 		<div>
+			<input type="text" name="task-item" autocomplete="off"
+							onkeyup="taskItemHandleKeyUp(this, event)"
+							placeholder=${'placeholder'} value="${'task'}">
 			<double-checkbox color=${'color'}></double-checkbox>
-			<input type="text" name="task-item" autocomplete="off" onkeyup="taskItemHandleKeyUp(this, event)" placeholder=${'placeholder'}>
 		</div>
 	</task-item>
 `;
@@ -53,6 +56,9 @@ function taskItemHandleKeyUp(input, event) {
 			removeTaskItem(input);
 		}
 	}
+
+	const taskItem = input.getRootNode().host;
+	taskItem.setAttribute('task', event.target.value);
 }
 
 function addNewTaskItem(input) {

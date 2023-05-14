@@ -11,5 +11,6 @@ define`
 		<script src="./components/color-test.js"></script>
 		<script src="./components/dot-grid-pattern.js"></script>
 		<script src="./components/local-storage-provider.js"></script>
+		<script src="./components/material-icon.js"></script>
 	</list-list-components>
 `;

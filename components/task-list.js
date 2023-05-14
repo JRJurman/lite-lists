@@ -14,6 +14,16 @@ define`
 				font-weight: inherit;
 			}
 
+			button {
+				position: absolute;
+				top: 0.8em;
+				right: 0.5em;
+				background: none;
+				border: none;
+				color: ${'color'};
+				font-size: 1em;
+			}
+
 			input[type="text"] {
 				width: 100%;
 				font-family: inherit;
@@ -41,6 +51,9 @@ define`
 		<div>
 			<h2>
 				<input type="text" placeholder="New List" value=${'title'} onchange="updateTaskListTitle(this, event)">
+				<button aria-label="remove task list" onclick="removeTaskList(this)">
+					<material-icon icon="close" weight="100"></material-icon>
+				</button>
 				<color-picker color=${'color'}></color-picker>
 			</h2>
 			<ul>
@@ -79,4 +92,16 @@ function updateTaskListTitle(input, event) {
 	const newTitle = event.target.value;
 	taskList.setAttribute('title', newTitle);
 	triggerSave(input);
+}
+
+function removeTaskList(button) {
+	const taskList = button.getRootNode().host;
+	const dragContainer = taskList.parentElement;
+	const canvas = dragContainer.parentElement;
+
+	// we have to remove the drag-container above us
+	dragContainer.remove();
+
+	// trigger the update from the canvas element
+	triggerSave(canvas);
 }
