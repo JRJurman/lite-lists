@@ -9,16 +9,19 @@ define`
 
 function initLocalStorageProvider(localStorageProvider) {
 	localStorageProvider.addEventListener('trigger-save', writeCurrentState);
-	try {
-		loadLocalstorageState();
-		sessionStorage.setItem('hasReloaded', 'false');
-	} catch {
-		// if we fail, do a page reload (but only do this once)
-		if (sessionStorage.getItem('hasReloaded') !== 'true') {
-			sessionStorage.setItem('hasReloaded', 'true');
-			window.location.reload();
+	// delay loading by 100ms, just to give everything a moment to load
+	setTimeout(() => {
+		try {
+			loadLocalstorageState();
+			sessionStorage.setItem('hasReloaded', 'false');
+		} catch {
+			// if we fail, do a page reload (but only do this once)
+			if (sessionStorage.getItem('hasReloaded') !== 'true') {
+				sessionStorage.setItem('hasReloaded', 'true');
+				window.location.reload();
+			}
 		}
-	}
+	}, 100);
 }
 
 function triggerSave(sourceElement) {
