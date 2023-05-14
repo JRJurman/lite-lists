@@ -22,39 +22,13 @@ define`
 
 function initTaskListCanvas(taskListCanvas) {
 	const divContainer = taskListCanvas.shadowRoot.querySelector('div');
-
-	// mouse double click event
 	taskListCanvas.addEventListener('dblclick', (event) => {
 		// make sure the double click is happening on the canvas,
 		// and not some other element like the checkbox or inputs
 		const clickTarget = event.composedPath()[0];
-		if (clickTarget !== divContainer) {
-			return;
-		}
-
-		removeHelperText(taskListCanvas);
-		createNewTaskList({ x: event.clientX, y: event.clientY });
-	});
-
-	// touch device double tap event
-	taskListCanvas.addEventListener('touchstart', (event) => {
-		const clickTarget = event.composedPath()[0];
-		if (clickTarget !== divContainer) {
-			return;
-		}
-
-		// if we already triggered a touchstart on this element, create a new list
-		// otherwise, wait to see if a double tap happens
-		if (taskListCanvas.getAttribute('touchstart') === '1') {
-			event.preventDefault();
+		if (clickTarget === divContainer) {
 			removeHelperText(taskListCanvas);
-			createNewTaskList({ x: event.targetTouches[0].clientX, y: event.targetTouches[0].clientY });
-			taskListCanvas.setAttribute('touchstart', '0');
-		} else {
-			taskListCanvas.setAttribute('touchstart', '1');
-			setTimeout(() => {
-				taskListCanvas.setAttribute('touchstart', '0');
-			}, 300);
+			createNewTaskList({ x: event.clientX, y: event.clientY });
 		}
 	});
 }
@@ -72,8 +46,6 @@ function createNewTaskList(position) {
 		</drag-container>
 	`;
 	divContainer.appendChild(newTaskList);
-
-	triggerSave(divContainer);
 }
 
 function removeHelperText(taskListCanvas) {

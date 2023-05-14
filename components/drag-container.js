@@ -31,28 +31,21 @@ function roundXAndYToGrid(x, y) {
 	return [roundedX, roundedY];
 }
 
-function startDraggableContainer(draggableDiv, event, forceEvent) {
+function startDraggableContainer(draggableDiv, event) {
 	// make sure the drag is happening on the div container,
 	// and not some other element like the checkbox or inputs
-	// (unless we forced the event)
 	const clickTarget = event.composedPath()[0];
-	if (clickTarget != draggableDiv && forceEvent === undefined) {
+	if (clickTarget != draggableDiv) {
 		return;
 	}
 
-	const eventX = event.clientX || event.targetTouches[0].clientX;
-	const eventY = event.clientY || event.targetTouches[0].clientY;
-
-	const offsetX = eventX - draggableDiv.getBoundingClientRect().left;
-	const offsetY = eventY - draggableDiv.getBoundingClientRect().top;
+	const offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
+	const offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
 
 	const dragContainer = draggableDiv.getRootNode().host;
 	const mouseMoveHandler = (e) => {
-		const eventX = e.clientX || e.targetTouches[0].clientX;
-		const eventY = e.clientY || e.targetTouches[0].clientY;
-
-		let newX = eventX - offsetX;
-		let newY = eventY - offsetY;
+		let newX = e.clientX - offsetX;
+		let newY = e.clientY - offsetY;
 
 		if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_DRAG) {
 			[newX, newY] = roundXAndYToGrid(newX, newY);
@@ -74,13 +67,9 @@ function startDraggableContainer(draggableDiv, event, forceEvent) {
 
 		document.removeEventListener('mousemove', mouseMoveHandler);
 		document.removeEventListener('mouseup', mouseUpHandler);
-		document.removeEventListener('touchmove', mouseMoveHandler);
-		document.removeEventListener('touchend', mouseUpHandler);
 		triggerSave(dragContainer);
 	};
 
 	document.addEventListener('mousemove', mouseMoveHandler);
 	document.addEventListener('mouseup', mouseUpHandler);
-	document.addEventListener('touchmove', mouseMoveHandler);
-	document.addEventListener('touchend', mouseUpHandler);
 }
