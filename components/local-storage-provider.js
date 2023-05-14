@@ -51,7 +51,8 @@ function writeCurrentState() {
 
 			const [checkbox] = queryAllDOM('double-checkbox', taskItem.shadowRoot);
 			const state = checkbox.getAttribute('state');
-			return { label, state };
+			const size = taskItem.getAttribute('size');
+			return { label, state, size };
 		});
 
 		return { x, y, color, title, tasks };
@@ -89,6 +90,7 @@ function loadLocalstorageState() {
 				task="${newTask.label}"
 				state="${newTask.state}"
 				color="${color}"
+				size="${newTask.size || '20'}"
 			></task-item>`;
 			taskItemList.appendChild(newTaskItem);
 		});
