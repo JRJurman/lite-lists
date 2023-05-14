@@ -3,6 +3,11 @@ define`
 		<style>
 			h2 {
 				margin: 0;
+
+				/* push this closer to the ul */
+				margin-bottom: -7px;
+    		margin-top: 7px;
+
 				justify-content: space-between;
 				width: calc(1.4em*6);
 				align-items: baseline;
@@ -35,7 +40,7 @@ define`
 
 		<div>
 			<h2>
-				<input type="text" placeholder="New List">
+				<input type="text" placeholder="New List" value=${'title'} onchange="updateTaskListTitle(this, event)">
 				<color-picker color=${'color'}></color-picker>
 			</h2>
 			<ul>
@@ -67,4 +72,11 @@ function initTaskList(taskList) {
 	// always start by picking one of these colors at random
 	const randomColor = hexColors[Math.floor(Math.random() * hexColors.length)];
 	taskList.setAttribute('color', randomColor);
+}
+
+function updateTaskListTitle(input, event) {
+	const taskList = input.getRootNode().host;
+	const newTitle = event.target.value;
+	taskList.setAttribute('title', newTitle);
+	triggerSave(input);
 }

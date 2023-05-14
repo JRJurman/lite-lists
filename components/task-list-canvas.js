@@ -32,8 +32,11 @@ function createNewTaskList(position) {
 	// get the div container from the window (so this function can be called anywhere)
 	const divContainer = window.document.querySelector('task-list-canvas').shadowRoot.querySelector('div');
 
+	// round x and y, but offset a little, to account for the rounding drift
+	const [x, y] = roundXAndYToGrid(position.x - 50, position.y - 50);
+
 	const newTaskList = html`
-		<drag-container x="${position.x}" y="${position.y}">
+		<drag-container x="${x}" y="${y}">
 			<task-list></task-list>
 		</drag-container>
 	`;
@@ -41,5 +44,8 @@ function createNewTaskList(position) {
 }
 
 function removeHelperText(taskListCanvas) {
-	taskListCanvas.shadowRoot.querySelector('span').remove();
+	const helperText = taskListCanvas.shadowRoot.querySelector('span');
+	if (helperText) {
+		helperText.remove();
+	}
 }

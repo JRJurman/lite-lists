@@ -10,5 +10,6 @@ define`
 		<script src="./components/create-task-list-button.js"></script>
 		<script src="./components/color-test.js"></script>
 		<script src="./components/dot-grid-pattern.js"></script>
+		<script src="./components/local-storage-provider.js"></script>
 	</list-list-components>
 `;

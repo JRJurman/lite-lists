@@ -48,6 +48,7 @@ function initColorPicker(colorPicker) {
 
 function emitColorChangeEvent(input, event) {
 	dispatchColorChangedEvent(input, event.target.value);
+	triggerSave(input);
 }
 
 function dispatchColorChangedEvent(dispatchTarget, color) {
