@@ -73,10 +73,10 @@ function getAllHexColors() {
 		'yellow',
 		'orange',
 		'choco',
-		'brown',
-		'sand',
-		'camo',
-		'jungle',
+		// 'brown',
+		// 'sand',
+		// 'camo',
+		// 'jungle',
 	];
 
 	// need to convert css variables to hex values to be usable in color input
