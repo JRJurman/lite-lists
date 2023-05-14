@@ -17,11 +17,18 @@ define`
 			button {
 				position: absolute;
 				top: 0.8em;
-				right: 0.5em;
 				background: none;
 				border: none;
 				color: ${'color'};
 				font-size: 1em;
+			}
+
+			button#drag {
+				right: 1.5em;
+			}
+
+			button#delete {
+				right: 0.5em;
 			}
 
 			input[type="text"] {
@@ -54,7 +61,10 @@ define`
 		<div>
 			<h2>
 				<input type="text" placeholder="New List" value=${'title'} onchange="updateTaskListTitle(this, event)">
-				<button aria-label="remove task list" onclick="removeTaskList(this)">
+				<button id="drag" aria-label="drag list" onclick="onDragButtonClick(this, event)">
+					<material-icon icon="drag_pan" weight="100"></material-icon>
+				</button>
+				<button id="delete" aria-label="remove task list" onclick="removeTaskList(this)">
 					<material-icon icon="close" weight="100"></material-icon>
 				</button>
 				<color-picker color=${'color'}></color-picker>
@@ -107,4 +117,11 @@ function removeTaskList(button) {
 
 	// trigger the update from the canvas element
 	triggerSave(canvas);
+}
+
+function onDragButtonClick(button, event) {
+	const taskList = button.getRootNode().host;
+	const dragContainer = taskList.parentElement;
+	const draggableDiv = dragContainer.shadowRoot.querySelector('div');
+	startDraggableContainer(draggableDiv, event, true);
 }
