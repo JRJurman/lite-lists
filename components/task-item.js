@@ -30,7 +30,7 @@ define`
 			}
 		</style>
 		<div>
-			<input type="text" name="task-item" autocomplete="off" size="20"
+			<input type="text" name="task-item" autocomplete="off" size=${'size'}
 							onkeyup="taskItemHandleKeyUp(this, event)"
 							placeholder=${'placeholder'} value="${'task'}">
 			<double-checkbox color=${'color'} state=${'state'}></double-checkbox>
@@ -58,6 +58,11 @@ function taskItemHandleKeyUp(input, event) {
 
 		const taskItem = input.getRootNode().host;
 		taskItem.setAttribute('task', event.target.value);
+
+		// resize input based on value
+		const newInputSize = Math.max(20, 20 + Math.ceil((event.target.value.length - 20) / 6) * 6);
+		taskItem.setAttribute('size', newInputSize);
+
 		triggerSave(taskItem);
 	}
 }

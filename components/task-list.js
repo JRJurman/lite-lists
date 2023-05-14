@@ -45,6 +45,9 @@ define`
 				padding: 0;
 				border-right: solid 2px ${'color'};
 				border-top: solid 2px ${'color'};
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
 			}
 		</style>
 
