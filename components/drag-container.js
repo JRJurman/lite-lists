@@ -1,5 +1,5 @@
 define`
-	<drag-container x="20" y="20">
+	<drag-container x="20" y="20" is-dragging="0">
 		<style>
 			div {
 				top: ${'y'}px;
@@ -10,7 +10,13 @@ define`
 				cursor: move;
 			}
 		</style>
-		<div onmousedown="startDraggableContainer(this, event)">
+		<div 	onmousedown="startDrag(this, event)"
+					onmousemove="moveHandler(this, event)"
+					onmouseup="endDrag(this, event)"
+					onmouseleave="endDrag(this, event)"
+					ontouchstart="startDrag(this, event)"
+					ontouchmove="moveHandler(this, event)"
+					ontouchend="endDrag(this, event)">
 			<slot>
 		</div>
 	</drag-container>
@@ -31,45 +37,63 @@ function roundXAndYToGrid(x, y) {
 	return [roundedX, roundedY];
 }
 
-function startDraggableContainer(draggableDiv, event) {
-	// make sure the drag is happening on the div container,
-	// and not some other element like the checkbox or inputs
-	const clickTarget = event.composedPath()[0];
-	if (clickTarget != draggableDiv) {
+function startDrag(draggableDiv, event) {
+	setXAndYOffset(draggableDiv, event);
+
+	const dragContainer = draggableDiv.getRootNode().host;
+	dragContainer.setAttribute('is-dragging', '1');
+}
+
+function setXAndYOffset(draggableDiv, event) {
+	const dragContainer = draggableDiv.getRootNode().host;
+
+	const eventX = event.clientX || event.targetTouches[0].clientX;
+	const eventY = event.clientY || event.targetTouches[0].clientY;
+
+	const offsetX = eventX - draggableDiv.getBoundingClientRect().left;
+	const offsetY = eventY - draggableDiv.getBoundingClientRect().top;
+
+	dragContainer.setAttribute('x-offset', offsetX);
+	dragContainer.setAttribute('y-offset', offsetY);
+}
+
+function moveHandler(draggableDiv, event) {
+	event.preventDefault();
+
+	const dragContainer = draggableDiv.getRootNode().host;
+
+	// check if we are dragging the container
+	if (dragContainer.getAttribute('is-dragging') !== '1') {
 		return;
 	}
 
-	const offsetX = event.clientX - draggableDiv.getBoundingClientRect().left;
-	const offsetY = event.clientY - draggableDiv.getBoundingClientRect().top;
+	const eventX = event.clientX || event.targetTouches[0].clientX;
+	const eventY = event.clientY || event.targetTouches[0].clientY;
 
+	let newX = eventX - parseFloat(dragContainer.getAttribute('x-offset'));
+	let newY = eventY - parseFloat(dragContainer.getAttribute('y-offset'));
+
+	if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_DRAG) {
+		[newX, newY] = roundXAndYToGrid(newX, newY);
+	}
+
+	dragContainer.setAttribute('x', newX);
+	dragContainer.setAttribute('y', newY);
+}
+
+function endDrag(draggableDiv, event) {
 	const dragContainer = draggableDiv.getRootNode().host;
-	const mouseMoveHandler = (e) => {
-		let newX = e.clientX - offsetX;
-		let newY = e.clientY - offsetY;
 
-		if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_DRAG) {
-			[newX, newY] = roundXAndYToGrid(newX, newY);
-		}
+	if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_RELEASE) {
+		const x = dragContainer.getAttribute('x');
+		const y = dragContainer.getAttribute('y');
+		const [roundedX, roundedY] = roundXAndYToGrid(x, y);
 
-		dragContainer.setAttribute('x', newX);
-		dragContainer.setAttribute('y', newY);
-	};
+		dragContainer.setAttribute('x', roundedX);
+		dragContainer.setAttribute('y', roundedY);
+	}
 
-	const mouseUpHandler = () => {
-		if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_RELEASE) {
-			const x = dragContainer.getAttribute('x');
-			const y = dragContainer.getAttribute('y');
-			const [roundedX, roundedY] = roundXAndYToGrid(x, y);
+	dragContainer.setAttribute('is-dragging', '0');
 
-			dragContainer.setAttribute('x', roundedX);
-			dragContainer.setAttribute('y', roundedY);
-		}
-
-		document.removeEventListener('mousemove', mouseMoveHandler);
-		document.removeEventListener('mouseup', mouseUpHandler);
-		triggerSave(dragContainer);
-	};
-
-	document.addEventListener('mousemove', mouseMoveHandler);
-	document.addEventListener('mouseup', mouseUpHandler);
+	triggerSave(dragContainer);
 }
