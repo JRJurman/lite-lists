@@ -60,15 +60,29 @@ function moveHandler(draggableDiv, event) {
 	const dragContainer = draggableDiv.getRootNode().host;
 
 	// check if we are dragging the container
+	// (if we aren't don't start moving)
 	if (dragContainer.getAttribute('is-dragging') !== '1') {
 		return;
 	}
 
+	const currentX = parseFloat(dragContainer.getAttribute('x'));
+	const currentY = parseFloat(dragContainer.getAttribute('y'));
+
 	const eventX = event.clientX || event.targetTouches[0].clientX;
 	const eventY = event.clientY || event.targetTouches[0].clientY;
 
-	let newX = eventX - parseFloat(dragContainer.getAttribute('x-offset'));
-	let newY = eventY - parseFloat(dragContainer.getAttribute('y-offset'));
+	const offsetX = parseFloat(dragContainer.getAttribute('x-offset'));
+	const offsetY = parseFloat(dragContainer.getAttribute('y-offset'));
+
+	let newX = eventX - offsetX;
+	let newY = eventY - offsetY;
+
+	// check if we've moved a significant distance
+	// (if we haven't, don't start moving)
+	const totalDiff = Math.abs(newX - currentX) + Math.abs(newY - currentY);
+	if (totalDiff < 30) {
+		return;
+	}
 
 	if (snappingBehavior === SNAP_BEHAVIORS.SNAP_ON_DRAG) {
 		[newX, newY] = roundXAndYToGrid(newX, newY);
