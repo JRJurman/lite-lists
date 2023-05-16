@@ -30,7 +30,7 @@ const snappingBehavior = SNAP_BEHAVIORS.SNAP_ON_DRAG;
 function roundXAndYToGrid(x, y) {
 	// snap to the nearest 1.4em -> 24px * 1.4em -> 33.6px
 	const roundedX = Math.round(x / 33.6) * 33.6 + 17;
-	const roundedY = Math.round(y / 33.6) * 33.6 + 13;
+	const roundedY = Math.round(y / 33.6) * 33.6 + 4;
 	return [roundedX, roundedY];
 }
 

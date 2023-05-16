@@ -8,6 +8,7 @@ define`
 			}
 
 			input[type="text"] {
+				flex-grow: 1;
 				font-family: inherit;
 				font-weight: inherit;
 				color: ${'color'};

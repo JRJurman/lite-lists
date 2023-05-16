@@ -1,5 +1,5 @@
 define`
-	<task-list>
+	<task-list size="8">
 		<style>
 			h2 {
 				margin: 0;
@@ -9,7 +9,7 @@ define`
     		margin-top: 7px;
 
 				justify-content: space-between;
-				width: calc(1.4em*6);
+				min-width: calc(1.4em*6);
 				align-items: baseline;
 				font-weight: inherit;
 			}
@@ -55,11 +55,15 @@ define`
 				flex-direction: column;
 				align-items: flex-start;
 			}
+
+			task-item {
+				width: 100%;
+			}
 		</style>
 
 		<div>
 			<h2>
-				<input type="text" placeholder="New List" value=${'title'} onchange="updateTaskListTitle(this, event)">
+				<input type="text" placeholder="New List" value=${'title'} size=${'size'} onkeyup="updateTaskListTitle(this, event)">
 				<button aria-label="remove task list" onclick="removeTaskList(this)">
 					<material-icon icon="close" weight="100"></material-icon>
 				</button>
@@ -100,6 +104,11 @@ function updateTaskListTitle(input, event) {
 	const taskList = input.getRootNode().host;
 	const newTitle = event.target.value;
 	taskList.setAttribute('title', newTitle);
+
+	// resize input based on value
+	const newInputSize = Math.max(8, 8 + Math.ceil((newTitle.length - 8) / 6) * 6);
+	taskList.setAttribute('size', newInputSize);
+
 	triggerSave(input);
 }
 
