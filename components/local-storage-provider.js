@@ -14,11 +14,13 @@ function initLocalStorageProvider(localStorageProvider) {
 		try {
 			loadLocalstorageState();
 			sessionStorage.setItem('hasReloaded', 'false');
-		} catch {
+		} catch (error) {
 			// if we fail, do a page reload (but only do this once)
 			if (sessionStorage.getItem('hasReloaded') !== 'true') {
 				sessionStorage.setItem('hasReloaded', 'true');
 				window.location.reload();
+			} else {
+				console.error(error);
 			}
 		}
 	}, 100);
@@ -89,11 +91,12 @@ function loadLocalstorageState() {
 		tasks.forEach((newTask) => {
 			const newTaskItem = html`<task-item
 				task="${newTask.label}"
-				state="${newTask.state}"
 				color="${color}"
 				size="${newTask.size || '20'}"
 			></task-item>`;
 			taskItemList.appendChild(newTaskItem);
+			const [checkbox] = queryAllDOM('double-checkbox', newTaskItem);
+			checkbox.setAttribute('state', newTask.state);
 		});
 	});
 
