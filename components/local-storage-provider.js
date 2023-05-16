@@ -8,7 +8,7 @@ define`
 `;
 
 function initLocalStorageProvider(localStorageProvider) {
-	localStorageProvider.addEventListener('trigger-save', writeCurrentState);
+	localStorageProvider.addEventListener('trigger-save', writeCurrentStateToLocalStorage);
 	// delay loading by 100ms, just to give everything a moment to load
 	setTimeout(() => {
 		try {
@@ -28,7 +28,7 @@ function triggerSave(sourceElement) {
 	sourceElement.dispatchEvent(new CustomEvent('trigger-save', { bubbles: true, composed: true }));
 }
 
-function writeCurrentState() {
+function writeCurrentStateToLocalStorage() {
 	// get all drag containers (these have the location)
 	const dragContainers = queryAllDOM('drag-container');
 

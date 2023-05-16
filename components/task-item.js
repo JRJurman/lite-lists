@@ -1,5 +1,5 @@
 define`
-	<task-item placeholder="and..." state="0">
+	<task-item placeholder="and...">
 		<style>
 			div {
 				display: flex;
@@ -34,7 +34,7 @@ define`
 			<input type="text" name="task-item" autocomplete="off" size=${'size'}
 							onkeyup="taskItemHandleKeyUp(this, event)"
 							placeholder=${'placeholder'} value="${'task'}">
-			<double-checkbox color=${'color'} state=${'state'}></double-checkbox>
+			<double-checkbox color=${'color'}></double-checkbox>
 		</div>
 	</task-item>
 `;
