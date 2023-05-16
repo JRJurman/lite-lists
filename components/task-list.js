@@ -16,12 +16,18 @@ define`
 
 			button {
 				position: absolute;
-				top: 0.8em;
+				top: 0.25em;
 				right: 0.5em;
 				background: none;
 				border: none;
 				color: ${'color'};
 				font-size: 1em;
+			}
+
+			color-picker {
+				position: absolute;
+				top: 0.15em;
+				right: 0.15em;
 			}
 
 			input[type="text"] {

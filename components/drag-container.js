@@ -5,9 +5,6 @@ define`
 				top: ${'y'}px;
 				left: ${'x'}px;
 				position: absolute;
-				padding-top: 1em;
-				padding-bottom: 0.5em;
-				cursor: move;
 			}
 		</style>
 		<div 	onmousedown="startDrag(this, event)"

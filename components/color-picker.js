@@ -7,10 +7,6 @@ define`
 				border: none;
 				border-radius: 50%;
 				overflow: hidden;
-				margin-left: -100%;
-				position: absolute;
-				right: 0;
-				top: 3em;
 			}
 
 			input[type=color]::-webkit-color-swatch {
