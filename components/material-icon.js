@@ -7,7 +7,14 @@ define`
 					'FILL' ${'fill'},
 					'wght' ${'weight'},
 					'GRAD' ${'grade'},
-					'opsz' ${'optical-size'}
+					'opsz' ${'optical-size'};
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				height: 100%;
+				width: 100%;
 			}
 
 			span:hover, span:focus {

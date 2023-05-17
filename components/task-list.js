@@ -8,26 +8,38 @@ define`
 				margin-bottom: -7px;
     		margin-top: 7px;
 
-				justify-content: space-between;
 				min-width: calc(1.4em*6);
-				align-items: baseline;
 				font-weight: inherit;
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
 			button {
-				position: absolute;
-				top: 0.25em;
-				right: 0.5em;
 				background: none;
 				border: none;
 				color: ${'color'};
 				font-size: 1em;
+				padding: 0;
+
+				width: 0.75em;
+				height: 0.75em;
+			}
+
+			material-icon {
+				display: block;
+				height: 100%;
+				width: 100%;
 			}
 
 			color-picker {
-				position: absolute;
-				top: 0.15em;
-				right: 0.15em;
+				width: 0.75em;
+				height: 0.75em;
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
 			}
 
 			input[type="text"] {
