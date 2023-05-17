@@ -43,7 +43,7 @@ function writeCurrentStateToLocalStorage() {
 		const [taskList] = queryAllDOM('task-list', dragContainer);
 		// get the title
 		const title = taskList.getAttribute('title');
-		const size = taskList.getAttribute('size');
+		const width = taskList.getAttribute('width');
 		const color = taskList.getAttribute('color');
 
 		// get each task-item in the task-list
@@ -54,11 +54,11 @@ function writeCurrentStateToLocalStorage() {
 
 			const [checkbox] = queryAllDOM('double-checkbox', taskItem.shadowRoot);
 			const state = checkbox.getAttribute('state');
-			const size = taskItem.getAttribute('size');
-			return { label, state, size };
+			const width = taskItem.getAttribute('width');
+			return { label, state, width };
 		});
 
-		return { x, y, color, title, size, tasks };
+		return { x, y, color, title, width, tasks };
 	});
 
 	const currentState = JSON.stringify(taskLists);
@@ -69,13 +69,13 @@ function loadLocalstorageState() {
 	const currentStateString = localStorage.getItem('lite-list-state');
 	const currentState = JSON.parse(currentStateString);
 
-	currentState.forEach(({ x, y, color, title, size, tasks }) => {
+	currentState.forEach(({ x, y, color, title, width, tasks }) => {
 		// grab the div container for drag-containers
 		const divContainer = window.document.querySelector('task-list-canvas').shadowRoot.querySelector('div');
 
 		const newTaskList = html`
 			<drag-container x="${x}" y="${y}">
-				<task-list title="${title}" size="${size}"></task-list>
+				<task-list title="${title}" width="${width}"></task-list>
 			</drag-container>
 		`;
 
@@ -92,7 +92,7 @@ function loadLocalstorageState() {
 			const newTaskItem = html`<task-item
 				task="${newTask.label}"
 				color="${color}"
-				size="${newTask.size || '20'}"
+				width="${newTask.width}"
 			></task-item>`;
 			taskItemList.appendChild(newTaskItem);
 			const [checkbox] = queryAllDOM('double-checkbox', newTaskItem);

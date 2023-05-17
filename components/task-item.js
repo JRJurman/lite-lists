@@ -1,5 +1,5 @@
 define`
-	<task-item placeholder="and...">
+	<task-item placeholder="and..." width="191px">
 		<style>
 			div {
 				display: flex;
@@ -17,6 +17,8 @@ define`
 				background: none;
 				font-size: 1em;
 				margin-left: 0.25em;
+				min-width: 191px;
+				width: ${'width'}
 			}
 
 			input[type="text"]::placeholder {
@@ -31,7 +33,7 @@ define`
 			}
 		</style>
 		<div>
-			<input type="text" name="task-item" autocomplete="off" size=${'size'}
+			<input type="text" name="task-item" autocomplete="off"
 							onkeyup="taskItemHandleKeyUp(this, event)"
 							placeholder=${'placeholder'} value="${'task'}">
 			<double-checkbox color=${'color'}></double-checkbox>
@@ -61,8 +63,8 @@ function taskItemHandleKeyUp(input, event) {
 		taskItem.setAttribute('task', event.target.value);
 
 		// resize input based on value
-		const newInputSize = Math.max(20, 20 + Math.ceil((event.target.value.length - 20) / 6) * 6);
-		taskItem.setAttribute('size', newInputSize);
+		const newInputSize = calcInputWidth(input);
+		taskItem.setAttribute('width', `${newInputSize}px`);
 
 		triggerSave(taskItem);
 	}
