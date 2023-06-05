@@ -9,5 +9,8 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"tram-lite": "^2.3.0"
+	}
 }

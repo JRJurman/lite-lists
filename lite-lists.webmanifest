@@ -1,0 +1,12 @@
+{
+	"name": "Lite Lists",
+	"description": "Canvas for building quick to-do lists",
+	"icons": [
+		{
+			"src": "lite-lists/favicon.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"start_url": "/lite-lists"
+}
