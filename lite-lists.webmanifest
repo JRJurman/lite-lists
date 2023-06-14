@@ -3,8 +3,8 @@
 	"description": "Canvas for building quick to-do lists",
 	"icons": [
 		{
-			"src": "lite-lists/favicon.png",
-			"sizes": "512x512",
+			"src": "https://jrjurman.com/lite-lists/favicon.png",
+			"sizes": "any",
 			"type": "image/png"
 		}
 	],
