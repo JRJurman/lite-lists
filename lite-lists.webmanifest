@@ -1,6 +1,6 @@
 {
 	"name": "Lite Lists",
-	"scope": "/lite-lists",
+	"scope": "/lite-lists/",
 	"description": "Canvas for building quick to-do lists",
 	"icons": [
 		{
