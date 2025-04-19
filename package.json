@@ -11,6 +11,6 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"tram-lite": "^2.3.0"
+		"tram-lite": "^2.4.0"
 	}
 }
